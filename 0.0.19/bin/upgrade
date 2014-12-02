@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+jboss_version="$1"
+old_cart_version="$2"
+new_cart_version="$3"
+
+OSE_20_LATEST="0.0.8"
+OSE_21_GA="0.0.14"
+
+# Needed for version 0.0.1 -> 0.1.11 during the 2.0.z lifetime.  This can
+# safely be removed after 2.2.
+if version_lt $old_cart_version $OSE_20_LATEST; then
+  if [ -e $OPENSHIFT_HOMEDIR/jbosseap/metadata/jenkins_shell_command ]; then
+    rm -f $OPENSHIFT_HOMEDIR/jbosseap/metadata/jenkins_shell_command
+  fi
+fi
+
+# For migration, if the user repo does not contain a standalone.xml, populate the "backup" from
+# the current config file used by the cartridge.
+if version_lt $old_cart_version $OSE_21_GA; then
+  mkdir -p $OPENSHIFT_JBOSSEAP_DIR/jboss_cfg_backup
+  if [ ! -f ${OPENSHIFT_REPO_DIR}/.openshift/config/standalone.xml ]; then
+    cp -n ${OPENSHIFT_JBOSSEAP_DIR}/standalone/configuration/standalone.xml $OPENSHIFT_JBOSSEAP_DIR/jboss_cfg_backup
+  else
+    cp -n ${OPENSHIFT_REPO_DIR}/.openshift/config/standalone.xml $OPENSHIFT_JBOSSEAP_DIR/jboss_cfg_backup
+  fi
+fi
