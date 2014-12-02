@@ -93,5 +93,5 @@ Additional-Control-Actions:
 
 
 Install-Build-Required: false
-Source-Url: https://github.com/yyuanyuan/jbosseap_test.git
+Source-Url: git@github.com:yyuanyuan/jbosseap_test.git
 #Source-Url: file:///root/mysql22/
