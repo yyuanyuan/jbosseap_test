@@ -98,4 +98,4 @@ Install-Build-Required: false
 #Source-Url: http://github.com/yyuanyuan/jbosseap_test.git
 #Source-Url: https://github.com/yyuanyuan/jbosseap_test/archive/master.zip
 #Source-Url: https://baidu.com
-Source-Url: file:///home/yyuan/openshift_cartridge_repository/jbosseap_test
+Source-Url: file:///root/jbosseap_test
